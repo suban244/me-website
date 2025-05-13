@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Suban</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Suban</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 13 May 2025 18:29:53 +0545</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Helo</title>
+      <link>http://localhost:1313/posts/helo/</link>
+      <pubDate>Tue, 13 May 2025 18:29:53 +0545</pubDate>
+      <guid>http://localhost:1313/posts/helo/</guid>
+      <description>Helo, Me Suban Shrestha #A Software Engineer.&#xA;Messy, Sporadic, but gets things done.</description>
+    </item>
+  </channel>
+</rss>
