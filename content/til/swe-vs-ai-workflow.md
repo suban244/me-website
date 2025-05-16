@@ -10,26 +10,27 @@ Most of the early Software Engineering (SWE) work involves a more deterministic 
 This differs from AI Engineering Workflow as, while there are best practices a big portion of the work is somewhat uncertain.  
 This generally results in unknown timelines and progress that cannot be measured in the usual sense.
 
-While `Make a integration with X` can be somewhat measured with it happening piece by piece. (linear trajectory)
+
+While `Make a integration with X` can be somewhat measured with it happening piece by piece. (linear trajectory)  
 Something like `Improve the search functionality` 
  - There is also no clear indication of what change will do the trick
  - It might happen, at some time, after scrapping a couple of ideas. (non linear trajectory)
 
 ### Indicators
 There are two ways of measuring progress
-1. Leading Indicators
+1. **Leading Indicators:**
   - how much work has been put in
   - Number of experiments done
   - Knowledge Gained
-2. Lagging Indicators: 
+2. **Lagging Indicators:**
   - Completeness
   - Accuracy
 
 While the lagging indicators work fine for something like software engineering, they can be demotivating when it comes to AI Engineering.
 The goal is then, as a AI Engineer to build around leading indicators. 
-- Experiments Done 
+- **Experiments Done**
   - Things tried this week
-- Knowledge Gained
+- **Knowledge Gained**
   - Documentation of Failed experiments
   - Better understanding of the problem space
 - Reproducibility for taking thigns to production
@@ -51,4 +52,4 @@ Moving forward I plan to establish a more structured experimental framework.
 
 
 Inspired by Jason Liu article [SWE vs AI Engineering Standups](https://jxnl.co/writing/2024/10/25/running-effective-ai-standups/)
-(mostly a rewrite)
+*(mostly a rewrite)*

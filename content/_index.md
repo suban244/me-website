@@ -7,4 +7,5 @@ Me Suban Shrestha.
 A Software Engineer.  
 Messy, Sporadic, but gets things done.
 
-Welcome to a blog
+### Writing
+1. [Today I Learned](/til/): Just a dump of thins is learned. I plan on updating this twice a week.
