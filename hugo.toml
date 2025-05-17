@@ -1,4 +1,4 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
 title = 'Suban Shrestha'
-theme = 'congo'
+theme = 'hugo-papermod'
