@@ -7,5 +7,6 @@ Me Suban Shrestha.
 A Software Engineer.  
 Messy, Sporadic, but gets things done.
 
-### Writing
+### Learning
 1. [Today I Learned](/til/): Just a dump of thins is learned. I plan on updating this twice a week.
+2. [To Read](/to-read/): A list of things i wish to read and write about

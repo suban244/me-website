@@ -6,8 +6,15 @@
     <description>Recent content in Helo on Suban Shrestha</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 16 May 2025 14:19:22 +0545</lastBuildDate>
+    <lastBuildDate>Fri, 16 May 2025 16:33:36 +0545</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>To Read</title>
+      <link>http://localhost:1313/to-read/</link>
+      <pubDate>Fri, 16 May 2025 16:33:36 +0545</pubDate>
+      <guid>http://localhost:1313/to-read/</guid>
+      <description> Your AI Problems aren&amp;rsquo;t really AI problems LLM Evaluations # LLM Evaluation Guidebook (Huggingface) OpenAI Evals Deepeval (confident-ai) OpenEvals (langchain) A Eval Knowledge Repo </description>
+    </item>
     <item>
       <title>SWE vs AI Workflow</title>
       <link>http://localhost:1313/til/swe-vs-ai-workflow/</link>
