@@ -2,3 +2,21 @@ baseURL = 'https://example.org/'
 languageCode = 'en-us'
 title = 'Suban Shrestha'
 theme = 'hugo-papermod'
+
+[[menu.main]]
+identifier = 'home'
+name = 'Home'
+url = '/'
+weight = 1
+
+[[menu.main]]
+identifier = 'til'
+name = 'Today I Learned'
+url = '/til/'
+weight = 2
+
+[[menu.main]]
+identifier = 'about'
+name = 'About'
+url = '/about/'
+weight = 3
