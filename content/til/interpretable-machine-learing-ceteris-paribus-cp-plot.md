@@ -1,7 +1,7 @@
 +++
 date = '2025-06-30T00:21:39+05:45'
 draft = false
-title = 'Interpretable Machine Learning Ceteris Paribus (CP) Plot'
+title = 'Interpretable Machine Learning: Ceteris Paribus (CP) Plot'
 +++
 > Local Model Agnostic Method
 
