@@ -12,3 +12,7 @@ title = 'To Read'
 - [ ] [Deepeval (confident-ai)](https://github.com/confident-ai/deepeval)
 - [ ] [OpenEvals (langchain)](https://github.com/langchain-ai/openevals)
 - [ ] [A Eval Knowledge Repo](https://github.com/alopatenko/LLMEvaluation)
+
+### LLM Agents
+- [ ] [UC Berkly AI Agents Summit](https://www.youtube.com/@BerkeleyRDI/streams)
+- [ ] [Lossfunk: Tiktok User Embeddings and Recommendations](https://www.youtube.com/watch?v=Y3iPpDQgcqk)
