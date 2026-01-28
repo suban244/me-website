@@ -13,9 +13,9 @@ When previous actions and observations still refer to tools that are no longer d
 Observations can be huge, and keeping everything in the context will pollute the context. We can do some context truncation/compression strategies for this case, but this will lead to information loss. This is because it is hard to predict ahead of time, what information we might need.
 In such cases, we can use `file system` as context, simplified to a *Key Value* store and the read and write things from this. Then we can make the compression strategies *restore-able*.
 Basically even if we remove a file from context, we keep the file name in context in order to access it later.
-### Manipulating Attention Via Recitation
+### Manipulating Attention via Recitation
 Over the course of multiple tool calls, a model might drift from the origin goal. **Manus** uses a `todo.md` file to keep track of the end goal and introduces it at multiple parts of the context to keep the model in track.
-### Leaving The wrong stuff in
+### Leaving The Wrong Stuff In
 Keeping errors that occur due to tool calls in context helps the model *learn from its mistakes* and perform better future actions.
 ### Getting Few Shotted
 The power of LLMs come from the having customizable behavior with in-context learning. Techniques such as `few shot learning` can help model perform much better in particular tasks.
