@@ -20,6 +20,7 @@ const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
   </p>
 
   <FilterBar
+    total={posts.length}
     noun="piece"
     groups={[
       { label: 'kind', name: 'kind', options: kinds },
