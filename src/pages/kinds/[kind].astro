@@ -4,25 +4,25 @@ import Base from '../../layouts/Base.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('writing', (p) => !p.data.draft);
-  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
-  return tags.map((tag) => ({
-    params: { tag },
+  const kinds = [...new Set(posts.map((p) => p.data.kind))];
+  return kinds.map((kind) => ({
+    params: { kind },
     props: {
       posts: posts
-        .filter((p) => p.data.tags.includes(tag))
+        .filter((p) => p.data.kind === kind)
         .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
     },
   }));
 }
 
-const { tag } = Astro.params;
+const { kind } = Astro.params;
 const { posts } = Astro.props;
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
-<Base title={`#${tag}`} description={`Writing tagged ${tag}.`}>
-  <h1>#{tag}</h1>
+<Base title={kind} description={`Writing filed under ${kind}.`}>
+  <h1>{kind}</h1>
   <p class="lede">{posts.length} {posts.length === 1 ? 'piece' : 'pieces'}</p>
 
   <ul class="post-list">
@@ -32,7 +32,6 @@ const fmt = (d: Date) =>
           <a class="entry-title" href={`/writing/${p.id}`}>{p.data.title}</a>
           <time class="entry-date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
           <div class="entry-sub">
-            <span class="kind">{p.data.kind}</span>
             {p.data.tags.map((t) => <a class="tag" href={`/tags/${t}`}>{t}</a>)}
           </div>
         </div>
