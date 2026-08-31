@@ -31,13 +31,25 @@ const timeline = defineCollection({
     parser: keyed((r) => `${r.kind}-${slug(r.title)}`),
   }),
   schema: z.object({
-    kind: z.enum(['career', 'education', 'publication', 'talk', 'project']),
+    kind: z.enum([
+      'career',
+      'education',
+      'publication',
+      'award',
+      'community',
+      'talk',
+      'project',
+    ]),
     title: z.string(),
     org: z.string().optional(),
     start: z.coerce.date(),
     end: z.coerce.date().nullable().default(null),
     url: z.string().url().optional(),
     blurb: z.string().optional(),
+    /** How much of the date is real. 'year' renders "2022", not "Jan 2022". */
+    precision: z.enum(['year', 'month', 'day']).default('month'),
+    /** Extra line under the title, e.g. an author list. */
+    detail: z.string().optional(),
   }),
 });
 

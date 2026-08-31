@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import fs from 'node:fs';
-import { rangeLabel, formatDate } from '../lib/dates';
+import { eventLabel, formatDate } from '../lib/dates';
 
 const posts = (await getCollection('writing', (p) => !p.data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -60,7 +60,7 @@ const yr = (d: Date | null) => (d ? d.getFullYear() : 'present');
               ) : (
                 <span class="entry-title">{p.data.title}</span>
               )}
-              <span class="entry-date">{yr(p.data.start)}</span>
+              <span class="entry-date">{eventLabel(p.data.kind, p.data.start, p.data.end, p.data.precision)}</span>
               {p.data.org && <div class="entry-sub meta">{p.data.org}</div>}
             </div>
           </li>
@@ -77,7 +77,7 @@ const yr = (d: Date | null) => (d ? d.getFullYear() : 'present');
           <li>
             <div class="entry">
               <span class="entry-title">{c.data.title}</span>
-              <span class="entry-date">{rangeLabel(c.data.start, c.data.end)}</span>
+              <span class="entry-date">{eventLabel(c.data.kind, c.data.start, c.data.end, c.data.precision)}</span>
               {c.data.org && <div class="entry-sub meta">{c.data.org}</div>}
             </div>
           </li>

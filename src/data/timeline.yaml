@@ -1,15 +1,9 @@
-# kind: career | education | publication | talk | project
-# end: leave null for "present"
-#
-# TODO(suban): education, publications and projects aren't in here yet.
-# Add them in the same shape, e.g.
-#
-# - kind: education
-#   title: BSc Computer Science
-#   org: Some University
-#   start: 2019-09-01
-#   end: 2023-06-01
+# kind: career | education | publication | award | community | talk | project
+# end: omit or null for ongoing. Point kinds (publication, award, talk) with
+#      no end render as a single date, not "- present".
+# precision: year | month | day  - how much of the date is actually known.
 
+# ---------------------------------------------------------------- career
 - kind: career
   title: AI / ML Engineer
   org: Reg-1
@@ -42,3 +36,83 @@
   start: 2023-11-01
   end: 2024-03-01
   blurb: Researched Transformer-based vision models.
+
+# ---------------------------------------------------------------- education
+- kind: education
+  title: BE in Computer Engineering
+  org: Pulchowk Campus, Tribhuvan University · Nepal
+  start: 2019-11-01
+  end: 2024-04-01
+  blurb: >-
+    Coursework in artificial intelligence, big data, enterprise computing
+    and statistics.
+
+# ---------------------------------------------------------------- publication
+- kind: publication
+  title: Extractive Nepali Question Answering System
+  org: KEC Journal of Science and Engineering · Vol 9, No 1
+  start: 2025-05-07
+  precision: day
+  url: https://doi.org/10.3126/kjse.v9i1.78368
+  detail: Yunika Bajracharya, Suban Shrestha, Saurav Bastola, Sanjivan Satyal
+  blurb: >-
+    Built an extractive QA system for Nepali, with Nepali translations of
+    SQuAD 1.1 and XQuAD for benchmarking. Translation-invariant tokens
+    lifted span retention from 50% to 93%, and the best model reached 72.99
+    EM / 84.13 F1 on XQuAD-Nepali. Datasets and code released publicly.
+
+# ---------------------------------------------------------------- awards
+- kind: award
+  title: Winner — Gritfeat AI Health Hackathon
+  start: 2023-01-01
+
+- kind: award
+  title: Winner — Ace Ignite 48-hour Hackathon
+  start: 2022-11-01
+
+- kind: award
+  title: Winner — IT MEET 2022 Image Challenge
+  org: Kathmandu University
+  start: 2022-08-01
+
+- kind: award
+  title: Finalist — Hult Prize
+  org: Pulchowk Campus
+  start: 2022-01-01
+  precision: year
+
+# ---------------------------------------------------------------- community
+- kind: community
+  title: Children in Technology
+  start: 2023-11-01
+  end: 2023-11-01
+  blurb: >-
+    Led a team of 13 undergraduates across 5 underserved rural communities in
+    eastern Nepal, reaching 13 schools and roughly 2,000 students with
+    sessions on internet safety and cyber law.
+
+- kind: community
+  title: Software Fellowship
+  start: 2023-08-01
+  end: 2023-08-01
+  blurb: >-
+    Designed and taught software engineering fundamentals and machine
+    learning algorithms to over 100 students.
+
+- kind: community
+  title: Robocamp Instructor
+  start: 2023-07-01
+  end: 2023-07-01
+  blurb: >-
+    Taught electronics fundamentals through to advanced microcontroller
+    programming.
+
+# TODO(suban): this one needs dates before it can go on the timeline.
+# Roughly when did you hold the PDSC role?
+# - kind: community
+#   title: Human Resource Manager
+#   org: PDSC, Pulchowk Campus
+#   start: 20XX-XX-01
+#   end: 20XX-XX-01
+#   blurb: >-
+#     Organised and ran 5+ technical workshops and community outreach events.

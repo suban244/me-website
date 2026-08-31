@@ -16,6 +16,8 @@
   --publication: #7b56a5;
   --talk: #a8791f;
   --project: #2c8480;
+  --award: #b0631a;
+  --community: #a8456b;
 
   --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -42,6 +44,8 @@
     --publication: #b493cf;
     --talk: #d9b46a;
     --project: #6fc0bd;
+    --award: #e0a05c;
+    --community: #dd8bab;
     color-scheme: dark;
   }
 }
@@ -61,6 +65,8 @@
   --publication: #b493cf;
   --talk: #d9b46a;
   --project: #6fc0bd;
+  --award: #e0a05c;
+  --community: #dd8bab;
   color-scheme: dark;
 }
 
@@ -726,4 +732,9 @@ th {
     transition: none !important;
     animation: none !important;
   }
+}
+
+.detail {
+  font-size: 0.8rem;
+  font-style: italic;
 }
