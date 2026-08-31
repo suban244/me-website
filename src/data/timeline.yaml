@@ -107,8 +107,22 @@
     Taught electronics fundamentals through to advanced microcontroller
     programming.
 
-# TODO(suban): this one needs dates before it can go on the timeline.
-# Roughly when did you hold the PDSC role?
+# ---------------------------------------------------------------- talks
+- kind: talk
+  title: Pulchowk Career Conclave
+  org: Pulchowk Campus
+  start: 2026-06-06
+  precision: day
+  blurb: >-
+    Talk on entry-level roadmaps for new graduates, AI-based research, and
+    AI-led software development.
+
+# ---------------------------------------------------------------- TODO
+# These need dates before they can go on the timeline - an entry has to sit
+# somewhere. Uncomment and fill in `start` (and `end` for anything that ran
+# over a period) and they'll appear.
+
+# TODO(suban): when did you hold the PDSC role?
 # - kind: community
 #   title: Human Resource Manager
 #   org: PDSC, Pulchowk Campus
@@ -116,3 +130,20 @@
 #   end: 20XX-XX-01
 #   blurb: >-
 #     Organised and ran 5+ technical workshops and community outreach events.
+
+# TODO(suban): when was this, and is there more to say about the role?
+# - kind: community
+#   title: Facilitator
+#   org: AI Safety Nepal
+#   start: 20XX-XX-01
+
+# TODO(suban): when was the workshop? Also check the college's spelling -
+# I've written Nagarjuna, you wrote Nagarajuna.
+# - kind: community
+#   title: Intro to Python
+#   org: Nagarjuna College of IT
+#   start: 20XX-XX-01
+#   end: 20XX-XX-01
+#   blurb: >-
+#     Four-day workshop taking first-year students from the basics through to
+#     building a Wordle game.
