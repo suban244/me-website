@@ -632,8 +632,28 @@ th {
   text-decoration: none;
 }
 
+/* Linked entries otherwise look identical to unlinked ones, so the marker is
+   the only thing telling you the row goes somewhere. */
+.ev-title a::after {
+  content: '↗';
+  display: inline-block;
+  margin-left: 0.3em;
+  font-size: 0.78em;
+  color: var(--faint);
+  transform: translateY(-0.06em);
+  transition: color 0.12s, transform 0.12s;
+}
+
 .ev-title a:hover {
   color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 3px;
+}
+
+.ev-title a:hover::after {
+  color: var(--accent);
+  transform: translate(0.1em, -0.18em);
 }
 
 .ev .meta {
