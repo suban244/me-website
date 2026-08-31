@@ -2,7 +2,7 @@
 title: 'The Illusion of Thinking'
 date: 2025-06-09T00:28:25+05:45
 kind: til
-tags: [llm, reasoning, papers]
+tags: [llm]
 aliases: [/til/the-illusion-of-thinking/]
 ---
 

@@ -2,7 +2,7 @@
 title: 'Interpretable Machine Learning'
 date: 2025-06-29T22:51:34+05:45
 kind: til
-tags: [ml, interpretability]
+tags: [interpretability]
 aliases: [/til/interpretable-machine-learning/]
 ---
 

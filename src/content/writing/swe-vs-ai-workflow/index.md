@@ -2,7 +2,7 @@
 title: 'SWE vs AI Workflow'
 date: 2025-05-16T14:19:22+05:45
 kind: til
-tags: [ai, engineering]
+tags: [engineering, llm]
 aliases: [/til/swe-vs-ai-workflow/]
 ---
 

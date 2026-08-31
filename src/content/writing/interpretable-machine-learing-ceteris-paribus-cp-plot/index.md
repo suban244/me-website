@@ -2,7 +2,7 @@
 title: 'Interpretable Machine Learning: Ceteris Paribus (CP) Plot'
 date: 2025-06-30T00:21:39+05:45
 kind: til
-tags: [ml, interpretability]
+tags: [interpretability]
 aliases: [/til/interpretable-machine-learing-ceteris-paribus-cp-plot/]
 ---
 

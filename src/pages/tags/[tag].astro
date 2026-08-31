@@ -2,43 +2,92 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
+// Tags span both collections, so tag pages are built from the union.
+// Otherwise a tag only the reading list uses (e.g. `evals`) would 404.
 export async function getStaticPaths() {
   const posts = await getCollection('writing', (p) => !p.data.draft);
-  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
-  return tags.map((tag) => ({
+  const links = await getCollection('reading');
+
+  const all = [...new Set([...posts, ...links].flatMap((e) => e.data.tags))];
+
+  return all.map((tag) => ({
     params: { tag },
     props: {
       posts: posts
         .filter((p) => p.data.tags.includes(tag))
         .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+      links: links
+        .filter((l) => l.data.tags.includes(tag))
+        .sort((a, b) => b.data.added.valueOf() - a.data.added.valueOf()),
     },
   }));
 }
 
 const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { posts, links } = Astro.props;
+
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const host = (u: string) => {
+  try {
+    return new URL(u).hostname.replace(/^www\./, '');
+  } catch {
+    return '';
+  }
+};
+
+const total = posts.length + links.length;
 ---
 
-<Base title={`#${tag}`} description={`Writing tagged ${tag}.`}>
+<Base title={`#${tag}`} description={`Writing and reading tagged ${tag}.`}>
   <h1>#{tag}</h1>
-  <p class="lede">{posts.length} {posts.length === 1 ? 'piece' : 'pieces'}</p>
+  <p class="lede">{total} {total === 1 ? 'item' : 'items'}</p>
 
-  <ul class="post-list">
-    {posts.map((p) => (
-      <li>
-        <div class="entry">
-          <a class="entry-title" href={`/writing/${p.id}`}>{p.data.title}</a>
-          <time class="entry-date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
-          <div class="entry-sub">
-            <span class="kind">{p.data.kind}</span>
-            {p.data.tags.map((t) => <a class="tag" href={`/tags/${t}`}>{t}</a>)}
-          </div>
-        </div>
-      </li>
-    ))}
-  </ul>
+  {posts.length > 0 && (
+    <section class="section">
+      <h2>Writing</h2>
+      <ul class="post-list">
+        {posts.map((p) => (
+          <li>
+            <div class="entry">
+              <a class="entry-title" href={`/writing/${p.id}`}>{p.data.title}</a>
+              <time class="entry-date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+              <div class="entry-sub">
+                <span class="kind">{p.data.kind}</span>
+                {p.data.tags.map((t) => <a class="tag" href={`/tags/${t}`}>{t}</a>)}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 
-  <p class="section-more" style="margin-top: 2rem"><a href="/writing">← all writing</a></p>
+  {links.length > 0 && (
+    <section class="section">
+      <h2>Reading</h2>
+      <ul class="post-list">
+        {links.map((l) => (
+          <li>
+            <div class="entry">
+              <a class="entry-title" href={l.data.url}>{l.data.title}</a>
+              <span class="entry-date">{host(l.data.url)}</span>
+              <div class="entry-sub">
+                <span class={`status status-${l.data.status}`}>{l.data.status}</span>
+                {l.data.wrote && (
+                  <a class="tag" href={`/writing/${l.data.wrote}`} style="color: var(--accent)">
+                    my notes →
+                  </a>
+                )}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <p class="section-more" style="margin-top: 2.5rem">
+    <a href="/writing">← all writing</a>
+  </p>
 </Base>

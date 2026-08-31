@@ -2,7 +2,7 @@
 title: 'Aws Agent Squad'
 date: 2025-06-02T23:05:02+05:45
 kind: til
-tags: [agents, aws, llm]
+tags: [agents, llm]
 aliases: [/til/aws-agent-squad/]
 ---
 

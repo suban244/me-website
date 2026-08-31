@@ -3,33 +3,33 @@
 - title: Your AI Problems aren't really AI problems
   url: https://jxnl.co/writing/2025/03/05/ai-from-the-trenches/
   status: queued
-  tags: [ai, engineering]
+  tags: [engineering, llm]
   added: 2025-05-16
 
 - title: LLM Evaluation Guidebook (Huggingface)
   url: https://github.com/huggingface/evaluation-guidebook
   status: queued
-  tags: [evals, llm]
+  tags: [llm, evals]
   added: 2025-05-16
 - title: OpenAI Evals
   url: https://github.com/openai/evals
   status: queued
-  tags: [evals, llm]
+  tags: [llm, evals]
   added: 2025-05-16
 - title: Deepeval (confident-ai)
   url: https://github.com/confident-ai/deepeval
   status: queued
-  tags: [evals, llm]
+  tags: [llm, evals]
   added: 2025-05-16
 - title: OpenEvals (langchain)
   url: https://github.com/langchain-ai/openevals
   status: queued
-  tags: [evals, llm]
+  tags: [llm, evals]
   added: 2025-05-16
 - title: A Eval Knowledge Repo
   url: https://github.com/alopatenko/LLMEvaluation
   status: queued
-  tags: [evals, llm]
+  tags: [llm, evals]
   added: 2025-05-16
 
 - title: UC Berkeley AI Agents Summit
@@ -40,5 +40,5 @@
 - title: "Lossfunk: Tiktok User Embeddings and Recommendations"
   url: https://www.youtube.com/watch?v=Y3iPpDQgcqk
   status: queued
-  tags: [agents, search]
+  tags: [llm]
   added: 2025-05-16
