@@ -541,60 +541,90 @@ th {
 }
 
 /* ---------------------------------------------------------------- spine */
+/* One continuous rule down the page. The year labels sit on it as anchors;
+   each event hangs off it with a kind-coloured node. The year is deliberately
+   NOT repeated per row - the date range in each row already states it. */
 .spine {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0 0;
   position: relative;
+  margin-top: 1.75rem;
+  padding-left: 1.9rem;
 }
 
 .spine::before {
   content: '';
   position: absolute;
-  left: 4.5rem;
-  top: 1.4rem;
-  bottom: 1.4rem;
+  left: 0.28rem;
+  top: 0.6rem;
+  bottom: 0.9rem;
   width: 1px;
   background: var(--border);
 }
 
-.ev {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: 1.75rem;
-  padding: 1rem 0;
+.year-marker {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+  margin: 0;
+  padding: 1.6rem 0 0.35rem;
   position: relative;
 }
 
-.ev-years {
-  font-family: var(--mono);
-  font-size: 0.76rem;
-  color: var(--faint);
-  text-align: right;
-  padding-top: 0.3rem;
-  white-space: nowrap;
+/* Sits the year on the rule and masks the line behind it, so the label reads
+   as a station on the timeline rather than text colliding with it. */
+.year-marker::before {
+  content: '';
+  position: absolute;
+  left: -1.9rem;
+  top: 1.75rem;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 2px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  transform: translateX(-0.03rem);
 }
 
+.year-group:first-child .year-marker {
+  padding-top: 0;
+}
+
+.year-group:first-child .year-marker::before {
+  top: 0.15rem;
+}
+
+.year-events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ev {
+  position: relative;
+  padding: 0.75rem 0;
+}
+
+.ev + .ev {
+  border-top: 1px solid var(--border);
+}
+
+/* Node on the rule, aligned to the row's first line. */
 .ev::after {
   content: '';
   position: absolute;
-  left: 4.5rem;
-  top: 1.5rem;
+  left: -1.9rem;
+  top: 1.15rem;
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
   background: var(--dot, var(--muted));
-  transform: translateX(-50%);
   box-shadow: 0 0 0 4px var(--bg);
-}
-
-.ev-body {
-  min-width: 0;
 }
 
 .ev-title {
   font-weight: 550;
-  margin-top: 0.25rem;
+  margin-top: 0.2rem;
 }
 
 .ev-title a {
@@ -606,8 +636,12 @@ th {
   color: var(--accent);
 }
 
-.ev-body p {
-  margin: 0.3rem 0 0;
+.ev .meta {
+  margin: 0.15rem 0 0;
+}
+
+.ev > p.meta {
+  margin-top: 0.4rem;
 }
 
 /* ---------------------------------------------------------------- home */
@@ -719,24 +753,13 @@ th {
     width: auto;
   }
 
-  .spine::before {
-    left: 0.27rem;
+  .spine {
+    padding-left: 1.4rem;
   }
 
-  .ev {
-    grid-template-columns: 1fr;
-    gap: 0.15rem;
-    padding-left: 1.5rem;
-  }
-
-  .ev-years {
-    text-align: left;
-    padding-top: 0;
-  }
-
-  .ev::after {
-    left: 0.27rem;
-    top: 1.35rem;
+  .ev::after,
+  .year-marker::before {
+    left: -1.4rem;
   }
 }
 

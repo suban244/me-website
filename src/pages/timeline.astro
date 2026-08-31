@@ -2,16 +2,26 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import FilterBar from '../components/FilterBar.astro';
-import { eventLabel, startYear } from '../lib/dates';
+import { eventLabel } from '../lib/dates';
 
 const events = (await getCollection('timeline')).sort(
   (a, b) => b.data.start.valueOf() - a.data.start.valueOf()
 );
 
 const kinds = [...new Set(events.map((e) => e.data.kind))].sort();
+
+// Group by start year. The year becomes a single anchor per group instead of
+// repeating on every row next to a date range that already states it.
+const years = [...new Set(events.map((e) => e.data.start.getUTCFullYear()))].sort(
+  (a, b) => b - a
+);
+const byYear = years.map((year) => ({
+  year,
+  items: events.filter((e) => e.data.start.getUTCFullYear() === year),
+}));
 ---
 
-<Base title="Timeline" description="Career, education, publications, talks and projects.">
+<Base title="Timeline" description="Career, education, publications, awards and community work.">
   <h1>Timeline</h1>
   <p class="lede">Everything, most recent first.</p>
 
@@ -21,28 +31,32 @@ const kinds = [...new Set(events.map((e) => e.data.kind))].sort();
     events.length === 0 ? (
       <p class="empty">Nothing here yet.</p>
     ) : (
-      <ol class="spine">
-        {events.map((e) => (
-          <li class="ev" data-item data-kind={e.data.kind} style={`--dot: var(--${e.data.kind})`}>
-            <span class="ev-years">{startYear(e.data.start)}</span>
-            <div class="ev-body">
-              <span class="kind">{e.data.kind}</span>
-              <div class="ev-title">
-                {e.data.url ? <a href={e.data.url}>{e.data.title}</a> : e.data.title}
-              </div>
-              <div class="meta">
-                {e.data.org && <span>{e.data.org}</span>}
-                {e.data.org && ' · '}
-                <span class="mono">
-                  {eventLabel(e.data.kind, e.data.start, e.data.end, e.data.precision)}
-                </span>
-              </div>
-              {e.data.detail && <div class="meta detail">{e.data.detail}</div>}
-              {e.data.blurb && <p class="meta">{e.data.blurb}</p>}
-            </div>
-          </li>
+      <div class="spine">
+        {byYear.map((group) => (
+          <section class="year-group" data-section>
+            <h2 class="year-marker">{group.year}</h2>
+            <ol class="year-events">
+              {group.items.map((e) => (
+                <li class="ev" data-item data-kind={e.data.kind} style={`--dot: var(--${e.data.kind})`}>
+                  <span class="kind">{e.data.kind}</span>
+                  <div class="ev-title">
+                    {e.data.url ? <a href={e.data.url}>{e.data.title}</a> : e.data.title}
+                  </div>
+                  <div class="meta">
+                    {e.data.org && <span>{e.data.org}</span>}
+                    {e.data.org && ' · '}
+                    <span class="mono">
+                      {eventLabel(e.data.kind, e.data.start, e.data.end, e.data.precision)}
+                    </span>
+                  </div>
+                  {e.data.detail && <div class="meta detail">{e.data.detail}</div>}
+                  {e.data.blurb && <p class="meta">{e.data.blurb}</p>}
+                </li>
+              ))}
+            </ol>
+          </section>
         ))}
-      </ol>
+      </div>
     )
   }
 </Base>
