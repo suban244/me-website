@@ -1,0 +1,22 @@
+# TODO(suban): replace these placeholders with your real history.
+# kind: career | education | publication | talk | project
+# end: leave null for "present"
+- kind: career
+  title: TODO - your current role
+  org: TODO - company
+  start: 2024-01-01
+  end: null
+  blurb: TODO - one line on what you do here.
+
+- kind: education
+  title: TODO - your degree
+  org: TODO - university
+  start: 2020-01-01
+  end: 2024-01-01
+
+- kind: project
+  title: TODO - a project worth showing
+  start: 2025-01-01
+  end: null
+  url: https://github.com/suban244
+  blurb: TODO - one line.

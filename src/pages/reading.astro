@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+const items = await getCollection('reading');
+const order = ['reading', 'queued', 'done', 'abandoned'] as const;
+const groups = order
+  .map((s) => ({ status: s, items: items.filter((i) => i.data.status === s) }))
+  .filter((g) => g.items.length > 0);
+---
+<Base title="Reading" description="What I'm reading, what's queued, and what it turned into.">
+  <h1>Reading</h1>
+  <p class="meta">A living list. When something turns into a post, it links through.</p>
+  {groups.map((g) => (
+    <>
+      <h2>{g.status}</h2>
+      <ul class="post-list">
+        {g.items.map((i) => (
+          <li>
+            <span>
+              <a href={i.data.url}>{i.data.title}</a>
+              {i.data.wrote && <> → <a href={`/writing/${i.data.wrote}`}>my notes</a></>}
+              {i.data.note && <div class="meta">{i.data.note}</div>}
+            </span>
+            <span class="meta">{i.data.tags.map((t) => <a class="tag" href={`/tags/${t}`}>{t}</a>)}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  ))}
+</Base>

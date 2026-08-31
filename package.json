@@ -1,0 +1,19 @@
+{
+  "name": "me-website",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "import": "node scripts/import-obsidian.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.2.5",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.2.1",
+    "js-yaml": "^4.1.0"
+  }
+}
