@@ -2,16 +2,23 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import fs from 'node:fs';
-import { eventLabel, formatDate } from '../lib/dates';
+import { eventLabel, formatDate, isOngoing } from '../lib/dates';
 
 const posts = (await getCollection('writing', (p) => !p.data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 5);
 
 const events = await getCollection('timeline');
-const career = events
-  .filter((e) => e.data.kind === 'career')
-  .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf());
+
+// Same rule as /timeline: whatever is ongoing leads, then most recent start.
+const byRecency = (a: { data: any }, b: { data: any }) => {
+  const ao = Number(isOngoing(a.data.kind, a.data.end));
+  const bo = Number(isOngoing(b.data.kind, b.data.end));
+  if (ao !== bo) return bo - ao;
+  return b.data.start.valueOf() - a.data.start.valueOf();
+};
+
+const career = events.filter((e) => e.data.kind === 'career').sort(byRecency);
 const publications = events
   .filter((e) => e.data.kind === 'publication')
   .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf());

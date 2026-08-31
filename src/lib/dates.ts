@@ -7,6 +7,15 @@ const POINT = new Set(['publication', 'award', 'talk']);
 
 export type Precision = 'year' | 'month' | 'day';
 
+/**
+ * Still running. A missing `end` alone isn't enough - a talk or award has no
+ * end either, but it happened once and is over. Only span kinds are ongoing.
+ *
+ * Ongoing entries sort above finished ones, so a current role leads its year
+ * even when something that has since ended started later in that year.
+ */
+export const isOngoing = (kind: string, end: Date | null) => !end && !POINT.has(kind);
+
 function stamp(d: Date, p: Precision): string {
   if (p === 'year') return String(d.getUTCFullYear());
   if (p === 'day') {
