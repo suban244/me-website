@@ -15,7 +15,7 @@ const kinds = [...new Set(events.map((e) => e.data.kind))].sort();
   <h1>Timeline</h1>
   <p class="lede">Everything, most recent first.</p>
 
-  <FilterBar noun="event" groups={[{ label: 'kind', name: 'kind', options: kinds, dots: true }]} />
+  <FilterBar total={events.length} noun="event" groups={[{ label: 'kind', name: 'kind', options: kinds, dots: true }]} />
 
   {
     events.length === 0 ? (

@@ -36,7 +36,7 @@ const host = (u: string) => {
     A living list. When something turns into a post, it links through.
   </p>
 
-  <FilterBar noun="link" groups={[{ label: 'tag', name: 'tags', options: tags }]} />
+  <FilterBar total={items.length} noun="link" groups={[{ label: 'tag', name: 'tags', options: tags }]} />
 
   {
     groups.map((g) => (

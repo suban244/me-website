@@ -77,6 +77,12 @@
   box-sizing: border-box;
 }
 
+/* Must outrank component display rules: .ev sets display:grid, which would
+   otherwise beat the UA's [hidden]{display:none} and break filtering. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -510,11 +516,18 @@ th {
   background: var(--accent-soft);
 }
 
+.filter-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 1.3rem;
+}
+
 .result-count {
   font-family: var(--mono);
   font-size: 0.78rem;
   color: var(--faint);
-  margin-top: 1rem;
+  margin: 0;
 }
 
 /* JS-only affordances stay hidden when JS is off, so the server-rendered
@@ -523,7 +536,7 @@ th {
   display: none;
 }
 
-.no-js .result-count {
+.no-js .filter-foot {
   display: none;
 }
 

@@ -24,9 +24,12 @@ interface Props {
   groups: FilterGroup[];
   /** Singular noun for the result count, e.g. "piece" */
   noun?: string;
+  /** Total rows, so the count renders server-side and never reflows. */
+  total: number;
 }
 
-const { groups, noun = 'item' } = Astro.props;
+const { groups, noun = 'item', total } = Astro.props;
+const plural = (n: number) => `${n} ${n === 1 ? noun : noun + 's'}`;
 ---
 
 <div class="filters" data-filters data-noun={noun}>
@@ -52,9 +55,11 @@ const { groups, noun = 'item' } = Astro.props;
       </div>
     ))
   }
-</div>
 
-<p class="result-count" data-count aria-live="polite"></p>
+  <div class="filter-foot">
+    <p class="result-count" data-count aria-live="polite">{plural(total)}</p>
+  </div>
+</div>
 
 <script>
   const bar = document.querySelector<HTMLElement>('[data-filters]');
@@ -98,10 +103,10 @@ const { groups, noun = 'item' } = Astro.props;
       }
 
       if (countEl) {
+        const word = (n: number) => `${n} ${n === 1 ? noun : noun + 's'}`;
         const filtered = [...active.values()].some(Boolean);
-        countEl.textContent = filtered
-          ? `${shown} ${shown === 1 ? noun : noun + 's'}`
-          : '';
+        // Always populated, so toggling a filter never reflows the list.
+        countEl.textContent = filtered ? `${shown} of ${word(items.length)}` : word(items.length);
       }
 
       const params = new URLSearchParams();
