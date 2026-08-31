@@ -2,7 +2,7 @@
 title: 'OpenAI - Scaling Postgres'
 date: 2026-01-28T21:31:52+05:45
 kind: til
-tags: [databases, scaling, postgres]
+tags: [systems]
 aliases: [/til/openai-scaling-postgres/]
 ---
 

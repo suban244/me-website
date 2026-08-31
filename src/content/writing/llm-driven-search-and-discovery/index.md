@@ -2,7 +2,7 @@
 title: "Instacart's LLM Driven Search and Discovery"
 date: 2025-06-06T00:45:32+05:45
 kind: til
-tags: [llm, search]
+tags: [llm]
 aliases: [/til/llm-driven-search-and-discovery/]
 ---
 

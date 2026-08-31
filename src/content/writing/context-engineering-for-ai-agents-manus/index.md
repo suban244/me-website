@@ -2,7 +2,7 @@
 title: 'Context Engineering Part 1'
 date: 2025-08-04T09:01:05+05:45
 kind: til
-tags: [agents, llm, context-engineering]
+tags: [agents, llm]
 aliases: [/til/context-engineering-for-ai-agents-manus/]
 ---
 

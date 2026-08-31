@@ -2,7 +2,7 @@
 title: 'Money Personality and Psychology'
 date: 2025-05-22T08:17:39+05:45
 kind: til
-tags: [psychology, finance]
+tags: [psychology]
 aliases: [/til/money-personality-and-psychology/]
 ---
 
