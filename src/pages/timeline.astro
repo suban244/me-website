@@ -2,11 +2,21 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import FilterBar from '../components/FilterBar.astro';
-import { eventLabel } from '../lib/dates';
+import { eventLabel, isOngoing } from '../lib/dates';
 
-const events = (await getCollection('timeline')).sort(
-  (a, b) => b.data.start.valueOf() - a.data.start.valueOf()
-);
+/**
+ * Ongoing first, then most recent start. Sorting on start alone buried the
+ * current role under a talk and a workshop that started later in 2026 but
+ * have since finished - what you're doing now should lead.
+ */
+const byRecency = (a: { data: any }, b: { data: any }) => {
+  const ao = Number(isOngoing(a.data.kind, a.data.end));
+  const bo = Number(isOngoing(b.data.kind, b.data.end));
+  if (ao !== bo) return bo - ao;
+  return b.data.start.valueOf() - a.data.start.valueOf();
+};
+
+const events = (await getCollection('timeline')).sort(byRecency);
 
 const kinds = [...new Set(events.map((e) => e.data.kind))].sort();
 
@@ -17,7 +27,7 @@ const years = [...new Set(events.map((e) => e.data.start.getUTCFullYear()))].sor
 );
 const byYear = years.map((year) => ({
   year,
-  items: events.filter((e) => e.data.start.getUTCFullYear() === year),
+  items: events.filter((e) => e.data.start.getUTCFullYear() === year).sort(byRecency),
 }));
 ---
 
