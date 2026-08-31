@@ -59,9 +59,16 @@ export function eventLabel(
   const sameYear = start.getUTCFullYear() === end.getUTCFullYear();
   const sameMonth = sameYear && start.getUTCMonth() === end.getUTCMonth();
 
-  // A few days inside one month: "May 18 – 22, 2023", not "May – May 2023".
-  if (precision === 'day' && sameMonth) {
-    return `${month(start)} ${start.getUTCDate()} – ${end.getUTCDate()}, ${end.getUTCFullYear()}`;
+  if (precision === 'day') {
+    // "May 18 – 22, 2023", not "May – May 2023".
+    if (sameMonth) {
+      return `${month(start)} ${start.getUTCDate()} – ${end.getUTCDate()}, ${end.getUTCFullYear()}`;
+    }
+    // Across months but inside one year, the days still matter:
+    // "Aug 15 – Sep 13, 2026", not "Aug – Sep 2026".
+    if (sameYear) {
+      return `${month(start)} ${start.getUTCDate()} – ${month(end)} ${end.getUTCDate()}, ${end.getUTCFullYear()}`;
+    }
   }
 
   // Month precision inside one month collapses to that single month.
