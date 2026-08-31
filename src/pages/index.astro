@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import fs from 'node:fs';
+import { rangeLabel, formatDate } from '../lib/dates';
 
 const posts = (await getCollection('writing', (p) => !p.data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -26,8 +27,6 @@ const interests = [
 ];
 
 const yr = (d: Date | null) => (d ? d.getFullYear() : 'present');
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
 <Base>
@@ -78,7 +77,7 @@ const fmt = (d: Date) =>
           <li>
             <div class="entry">
               <span class="entry-title">{c.data.title}</span>
-              <span class="entry-date">{yr(c.data.start)}–{yr(c.data.end)}</span>
+              <span class="entry-date">{rangeLabel(c.data.start, c.data.end)}</span>
               {c.data.org && <div class="entry-sub meta">{c.data.org}</div>}
             </div>
           </li>
@@ -95,7 +94,7 @@ const fmt = (d: Date) =>
         <li>
           <div class="entry">
             <a class="entry-title" href={`/writing/${p.id}`}>{p.data.title}</a>
-            <time class="entry-date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+            <time class="entry-date" datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time>
             <div class="entry-sub">
               <span class="kind">{p.data.kind}</span>
               {p.data.tags.map((t) => <a class="tag" href={`/tags/${t}`}>{t}</a>)}

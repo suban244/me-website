@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { formatDate } from '../../lib/dates';
 import Base from '../../layouts/Base.astro';
 
 // Tags span both collections, so tag pages are built from the union.
@@ -26,8 +27,6 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { posts, links } = Astro.props;
 
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 const host = (u: string) => {
   try {
     return new URL(u).hostname.replace(/^www\./, '');
@@ -51,7 +50,7 @@ const total = posts.length + links.length;
           <li>
             <div class="entry">
               <a class="entry-title" href={`/writing/${p.id}`}>{p.data.title}</a>
-              <time class="entry-date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+              <time class="entry-date" datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time>
               <div class="entry-sub">
                 <span class="kind">{p.data.kind}</span>
                 {p.data.tags.map((t) => <a class="tag" href={`/tags/${t}`}>{t}</a>)}

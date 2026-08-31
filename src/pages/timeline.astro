@@ -2,19 +2,13 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import FilterBar from '../components/FilterBar.astro';
+import { rangeLabel, startYear } from '../lib/dates';
 
 const events = (await getCollection('timeline')).sort(
   (a, b) => b.data.start.valueOf() - a.data.start.valueOf()
 );
 
 const kinds = [...new Set(events.map((e) => e.data.kind))].sort();
-const yr = (d: Date | null) => (d ? d.getFullYear() : 'present');
-
-const span = (start: Date, end: Date | null) => {
-  const a = yr(start);
-  const b = yr(end);
-  return a === b ? `${a}` : `${a}–${b}`;
-};
 ---
 
 <Base title="Timeline" description="Career, education, publications, talks and projects.">
@@ -29,19 +23,18 @@ const span = (start: Date, end: Date | null) => {
     ) : (
       <ol class="spine">
         {events.map((e) => (
-          <li
-            class="ev"
-            data-item
-            data-kind={e.data.kind}
-            style={`--dot: var(--${e.data.kind})`}
-          >
-            <span class="ev-years">{span(e.data.start, e.data.end)}</span>
+          <li class="ev" data-item data-kind={e.data.kind} style={`--dot: var(--${e.data.kind})`}>
+            <span class="ev-years">{startYear(e.data.start)}</span>
             <div class="ev-body">
               <span class="kind">{e.data.kind}</span>
               <div class="ev-title">
                 {e.data.url ? <a href={e.data.url}>{e.data.title}</a> : e.data.title}
               </div>
-              {e.data.org && <div class="meta">{e.data.org}</div>}
+              <div class="meta">
+                {e.data.org && <span>{e.data.org}</span>}
+                {e.data.org && ' · '}
+                <span class="mono">{rangeLabel(e.data.start, e.data.end)}</span>
+              </div>
               {e.data.blurb && <p class="meta">{e.data.blurb}</p>}
             </div>
           </li>
