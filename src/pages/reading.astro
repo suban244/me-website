@@ -1,30 +1,74 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import FilterBar from '../components/FilterBar.astro';
+
 const items = await getCollection('reading');
-const order = ['reading', 'queued', 'done', 'abandoned'] as const;
-const groups = order
-  .map((s) => ({ status: s, items: items.filter((i) => i.data.status === s) }))
-  .filter((g) => g.items.length > 0);
+
+const ORDER = ['reading', 'queued', 'done', 'abandoned'] as const;
+const LABEL: Record<(typeof ORDER)[number], string> = {
+  reading: 'Currently reading',
+  queued: 'Queued',
+  done: 'Read',
+  abandoned: 'Abandoned',
+};
+
+const groups = ORDER.map((status) => ({
+  status,
+  items: items
+    .filter((i) => i.data.status === status)
+    .sort((a, b) => b.data.added.valueOf() - a.data.added.valueOf()),
+})).filter((g) => g.items.length > 0);
+
+const tags = [...new Set(items.flatMap((i) => i.data.tags))].sort();
+const host = (u: string) => {
+  try {
+    return new URL(u).hostname.replace(/^www\./, '');
+  } catch {
+    return '';
+  }
+};
 ---
+
 <Base title="Reading" description="What I'm reading, what's queued, and what it turned into.">
   <h1>Reading</h1>
-  <p class="meta">A living list. When something turns into a post, it links through.</p>
-  {groups.map((g) => (
-    <>
-      <h2>{g.status}</h2>
-      <ul class="post-list">
-        {g.items.map((i) => (
-          <li>
-            <span>
-              <a href={i.data.url}>{i.data.title}</a>
-              {i.data.wrote && <> → <a href={`/writing/${i.data.wrote}`}>my notes</a></>}
-              {i.data.note && <div class="meta">{i.data.note}</div>}
-            </span>
-            <span class="meta">{i.data.tags.map((t) => <a class="tag" href={`/tags/${t}`}>{t}</a>)}</span>
-          </li>
-        ))}
-      </ul>
-    </>
-  ))}
+  <p class="lede">
+    A living list. When something turns into a post, it links through.
+  </p>
+
+  <FilterBar noun="link" groups={[{ label: 'tag', name: 'tags', options: tags }]} />
+
+  {
+    groups.map((g) => (
+      <section class="section" data-section>
+        <h2>{LABEL[g.status]}</h2>
+        <ul class="post-list">
+          {g.items.map((i) => (
+            <li data-item data-tags={i.data.tags.join(' ')}>
+              <div class="entry">
+                <a class="entry-title" href={i.data.url}>
+                  {i.data.title}
+                </a>
+                <span class="entry-date">{host(i.data.url)}</span>
+                <div class="entry-sub">
+                  <span class={`status status-${i.data.status}`}>{i.data.status}</span>
+                  {i.data.tags.map((t) => (
+                    <a class="tag" href={`/tags/${t}`}>
+                      {t}
+                    </a>
+                  ))}
+                  {i.data.wrote && (
+                    <a class="tag" href={`/writing/${i.data.wrote}`} style="color: var(--accent)">
+                      my notes →
+                    </a>
+                  )}
+                </div>
+                {i.data.note && <p class="meta entry-sub">{i.data.note}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
 </Base>

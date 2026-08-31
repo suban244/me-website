@@ -1,0 +1,133 @@
+---
+/**
+ * Client-side filter chips over a server-rendered list.
+ *
+ * The list is fully rendered at build time; these chips only hide rows, so
+ * the page works with JS off (the bar hides itself via `.no-js`) and the
+ * real /tags/:tag and /kinds/:kind pages remain the linkable fallback.
+ *
+ * Each filterable row needs `data-item` plus a `data-<group>` attribute
+ * holding one or more space-separated values.
+ */
+export interface FilterGroup {
+  /** Row label, e.g. "kind" */
+  label: string;
+  /** Matches the row's data-<name> attribute */
+  name: string;
+  /** Chip values */
+  options: string[];
+  /** Colour each chip's dot from --<value> */
+  dots?: boolean;
+}
+
+interface Props {
+  groups: FilterGroup[];
+  /** Singular noun for the result count, e.g. "piece" */
+  noun?: string;
+}
+
+const { groups, noun = 'item' } = Astro.props;
+---
+
+<div class="filters" data-filters data-noun={noun}>
+  {
+    groups.map((g) => (
+      <div class="filter-row" data-group-row={g.name}>
+        <span class="filter-label">{g.label}</span>
+        <button class="chip" data-group={g.name} data-value="" aria-pressed="true">
+          all
+        </button>
+        {g.options.map((opt) => (
+          <button
+            class="chip"
+            data-group={g.name}
+            data-value={opt}
+            data-dot={g.dots ? '' : undefined}
+            style={g.dots ? `--dot: var(--${opt})` : undefined}
+            aria-pressed="false"
+          >
+            {opt}
+          </button>
+        ))}
+      </div>
+    ))
+  }
+</div>
+
+<p class="result-count" data-count aria-live="polite"></p>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-filters]');
+
+  if (bar) {
+    const noun = bar.dataset.noun || 'item';
+    const chips = [...bar.querySelectorAll<HTMLButtonElement>('.chip')];
+    const items = [...document.querySelectorAll<HTMLElement>('[data-item]')];
+    const countEl = document.querySelector<HTMLElement>('[data-count]');
+    const groups = [...new Set(chips.map((c) => c.dataset.group!))];
+
+    // group -> selected value ('' means all)
+    const active = new Map<string, string>(groups.map((g) => [g, '']));
+
+    const tokens = (el: HTMLElement, group: string) =>
+      (el.dataset[group] ?? '').split(/\s+/).filter(Boolean);
+
+    function apply() {
+      let shown = 0;
+
+      for (const item of items) {
+        const visible = groups.every((g) => {
+          const want = active.get(g)!;
+          return !want || tokens(item, g).includes(want);
+        });
+        item.hidden = !visible;
+        if (visible) shown++;
+      }
+
+      for (const chip of chips) {
+        chip.setAttribute(
+          'aria-pressed',
+          String(active.get(chip.dataset.group!) === chip.dataset.value)
+        );
+      }
+
+      // Hide a section heading whose rows are all filtered out.
+      for (const section of document.querySelectorAll<HTMLElement>('[data-section]')) {
+        const rows = [...section.querySelectorAll<HTMLElement>('[data-item]')];
+        section.hidden = rows.length > 0 && rows.every((r) => r.hidden);
+      }
+
+      if (countEl) {
+        const filtered = [...active.values()].some(Boolean);
+        countEl.textContent = filtered
+          ? `${shown} ${shown === 1 ? noun : noun + 's'}`
+          : '';
+      }
+
+      const params = new URLSearchParams();
+      for (const [g, v] of active) if (v) params.set(g, v);
+      const qs = params.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    }
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        const group = chip.dataset.group!;
+        const value = chip.dataset.value!;
+        // Clicking the selected chip clears that group.
+        active.set(group, active.get(group) === value ? '' : value);
+        apply();
+      });
+    }
+
+    // Restore state from the URL so a filtered view is shareable.
+    const params = new URLSearchParams(location.search);
+    for (const g of groups) {
+      const v = params.get(g);
+      if (v && chips.some((c) => c.dataset.group === g && c.dataset.value === v)) {
+        active.set(g, v);
+      }
+    }
+    apply();
+  }
+</script>

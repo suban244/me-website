@@ -1,43 +1,115 @@
 ---
 import '../styles/global.css';
-interface Props { title?: string; description?: string; }
-const { title, description } = Astro.props;
-const site = 'Suban Shrestha';
-const pageTitle = title ? `${title} — ${site}` : site;
-const desc = description ?? 'Software engineer. Notes on LLMs, agents, interpretability and the systems around them.';
-const path = Astro.url.pathname;
+
+interface Props {
+  title?: string;
+  description?: string;
+  wide?: boolean;
+}
+
+const { title, description, wide = false } = Astro.props;
+
+const SITE = 'Suban Shrestha';
+const pageTitle = title ? `${title} — ${SITE}` : `${SITE} — Software Engineer`;
+const desc =
+  description ??
+  'Software engineer. Notes on LLMs, agents, interpretability and the systems around them.';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const nav = [
   { href: '/writing', label: 'Writing' },
   { href: '/timeline', label: 'Timeline' },
   { href: '/reading', label: 'Reading' },
   { href: '/about', label: 'About' },
 ];
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 ---
-<html lang="en">
+
+<html lang="en" class="no-js">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={desc} />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />
-    <link rel="alternate" type="application/rss+xml" title={site} href="/rss.xml" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="alternate" type="application/rss+xml" title={SITE} href="/rss.xml" />
+    <meta name="theme-color" content="#fdfcfa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1917" media="(prefers-color-scheme: dark)" />
+
+    {/* Runs before first paint: no flash of the wrong theme, and `no-js`
+        drops away so JS-only controls only appear when they'd work. */}
+    <script is:inline>
+      (() => {
+        const r = document.documentElement;
+        r.classList.remove('no-js');
+        try {
+          const saved = localStorage.getItem('theme');
+          if (saved === 'dark' || saved === 'light') r.dataset.theme = saved;
+        } catch {}
+      })();
+    </script>
   </head>
+
   <body>
     <header class="site">
       <div class="wrap">
-        <a class="name" href="/">{site}</a>
+        <a class="brand" href="/">{SITE}</a>
         <nav>
-          {nav.map((n) => (
-            <a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a>
-          ))}
-          <a class="term-toggle" href="/terminal" title="Terminal mode">&gt;_</a>
+          {
+            nav.map((n) => (
+              <a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>
+                {n.label}
+              </a>
+            ))
+          }
+          <a class="icon-btn" href="/terminal" title="Terminal mode" aria-label="Terminal mode">
+            &gt;_
+          </a>
+          <button class="icon-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+            <span aria-hidden="true">◐</span>
+          </button>
         </nav>
       </div>
     </header>
-    <main class="wrap"><slot /></main>
+
+    <main class={wide ? 'wrap wrap-wide' : 'wrap'}>
+      <slot />
+    </main>
+
     <footer class="site">
-      <div class="wrap">© {new Date().getFullYear()} {site} · <a href="/rss.xml">RSS</a></div>
+      <div class="wrap">
+        <span>© {new Date().getFullYear()} {SITE}</span>
+        <span class="spacer"></span>
+        <a href="https://github.com/suban244">GitHub</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="/terminal">Terminal</a>
+      </div>
     </footer>
+
+    <script>
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+
+      const systemDark = () => matchMedia('(prefers-color-scheme: dark)').matches;
+      const current = () => root.dataset.theme || (systemDark() ? 'dark' : 'light');
+
+      btn?.addEventListener('click', () => {
+        const next = current() === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try {
+          // Once it matches the OS again, forget the override so the site
+          // resumes following system changes.
+          if ((next === 'dark') === systemDark()) localStorage.removeItem('theme');
+          else localStorage.setItem('theme', next);
+        } catch {}
+      });
+    </script>
   </body>
 </html>
