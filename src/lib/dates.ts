@@ -47,7 +47,18 @@ export function eventLabel(
 
   if (end.valueOf() === start.valueOf()) return stamp(start, precision);
 
-  if (precision !== 'year' && start.getUTCFullYear() === end.getUTCFullYear()) {
+  const sameYear = start.getUTCFullYear() === end.getUTCFullYear();
+  const sameMonth = sameYear && start.getUTCMonth() === end.getUTCMonth();
+
+  // A few days inside one month: "May 18 – 22, 2023", not "May – May 2023".
+  if (precision === 'day' && sameMonth) {
+    return `${month(start)} ${start.getUTCDate()} – ${end.getUTCDate()}, ${end.getUTCFullYear()}`;
+  }
+
+  // Month precision inside one month collapses to that single month.
+  if (precision !== 'year' && sameMonth) return stamp(start, precision);
+
+  if (precision !== 'year' && sameYear) {
     return `${month(start)} – ${month(end)} ${end.getUTCFullYear()}`;
   }
 
