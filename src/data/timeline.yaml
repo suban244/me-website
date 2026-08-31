@@ -86,7 +86,6 @@
   title: Children in Technology
   start: 2023-11-01
   end: 2023-11-01
-  # Write-up in Zerone Magazine, not the organiser - so it's a link, not an org.
   url: https://medium.com/zerone-magazine/children-in-technology-dawn-in-the-eastern-plains-f9b3d0457ca0
   blurb: >-
     Led a team of 13 undergraduates across 5 underserved rural communities in
@@ -105,13 +104,11 @@
   title: Robocamp Instructor
   start: 2023-07-01
   end: 2023-07-01
+  url: https://www.facebook.com/share/p/15tz5LPkbK/
   blurb: >-
     Taught electronics fundamentals through to advanced microcontroller
     programming.
 
-# Dated from "3rd year of college": the degree ran Nov 2019 - Apr 2024, which
-# puts 3rd year around Mar 2022 - Apr 2023, and the 2022-23 hackathon wins sit
-# inside that window. Year precision because the months are inferred, not known.
 - kind: community
   title: Human Resource Manager
   org: PDSC, Pulchowk Campus
@@ -121,7 +118,6 @@
   blurb: >-
     Organised and ran 5+ technical workshops and community outreach events.
 
-# TODO(suban): read "on my 17" as May 17 - confirm the date, and the year.
 - kind: community
   title: 'AI Safety: Kickoff event'
   org: AI Safety Nepal
