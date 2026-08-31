@@ -121,11 +121,12 @@
 
 # TODO(suban): read "on my 17" as May 17 - confirm the date, and the year.
 - kind: community
-  title: Kickoff Event
+  title: 'AI Safety: Kickoff event'
   org: AI Safety Nepal
   start: 2026-05-17
   precision: day
   end: 2026-05-17
+  url: https://www.instagram.com/p/DYfPHsyDUGx/
   blurb: >-
     Facilitated small-group discussions on how AI is reshaping everyday life:
     the risks it introduces, and the shifts in power and social dynamics that
