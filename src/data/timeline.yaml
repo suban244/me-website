@@ -119,6 +119,18 @@
   blurb: >-
     Organised and ran 5+ technical workshops and community outreach events.
 
+# TODO(suban): read "on my 17" as May 17 - confirm the date, and the year.
+- kind: community
+  title: Kickoff Event
+  org: AI Safety Nepal
+  start: 2026-05-17
+  precision: day
+  end: 2026-05-17
+  blurb: >-
+    Facilitated small-group discussions on how AI is reshaping everyday life:
+    the risks it introduces, and the shifts in power and social dynamics that
+    come with it.
+
 - kind: community
   title: Intro to Python
   org: Nagarjuna College of IT
@@ -145,9 +157,10 @@
 # somewhere. Uncomment and fill in `start` (and `end` for anything that ran
 # over a period) and they'll appear.
 
-# TODO(suban): when was this, and is there more to say about the role?
+# TODO(suban): you said AI Safety Nepal was two parts - the kickoff is above,
+# what's the second one? Same shape, just needs a title, date and a line.
 # - kind: community
-#   title: Facilitator
+#   title: ...
 #   org: AI Safety Nepal
 #   start: 20XX-XX-01
 
