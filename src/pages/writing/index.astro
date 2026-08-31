@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { formatDate } from '../../lib/dates';
 import Base from '../../layouts/Base.astro';
 import FilterBar from '../../components/FilterBar.astro';
 
@@ -10,8 +11,6 @@ const posts = (await getCollection('writing', (p) => !p.data.draft)).sort(
 const kinds = [...new Set(posts.map((p) => p.data.kind))].sort();
 const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
 
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
 <Base title="Writing" description="Notes, essays and things I learned along the way.">
@@ -37,7 +36,7 @@ const fmt = (d: Date) =>
               {p.data.title}
             </a>
             <time class="entry-date" datetime={p.data.date.toISOString()}>
-              {fmt(p.data.date)}
+              {formatDate(p.data.date)}
             </time>
             <div class="entry-sub">
               <span class="kind">{p.data.kind}</span>

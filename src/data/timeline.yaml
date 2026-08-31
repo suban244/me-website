@@ -1,22 +1,44 @@
-# TODO(suban): replace these placeholders with your real history.
 # kind: career | education | publication | talk | project
 # end: leave null for "present"
+#
+# TODO(suban): education, publications and projects aren't in here yet.
+# Add them in the same shape, e.g.
+#
+# - kind: education
+#   title: BSc Computer Science
+#   org: Some University
+#   start: 2019-09-01
+#   end: 2023-06-01
+
 - kind: career
-  title: TODO - your current role
-  org: TODO - company
+  title: AI / ML Engineer
+  org: Reg-1
+  start: 2026-02-01
+  end: null
+  blurb: Building enterprise agents.
+
+- kind: career
+  title: Applied AI Engineer
+  org: reAlpha · Ohio, US
+  start: 2024-04-01
+  end: 2026-02-01
+  blurb: >-
+    Built the multi-agent orchestration layer behind customer-facing chat
+    agents for business and customer service, serving over 100,000 customer
+    queries.
+
+- kind: career
+  title: Software Engineering Intern
+  org: reAlpha · Dublin, OH
   start: 2024-01-01
-  end: null
-  blurb: TODO - one line on what you do here.
+  end: 2024-03-01
+  blurb: >-
+    Built retrieval-augmented generation over financial documents using
+    LlamaIndex.
 
-- kind: education
-  title: TODO - your degree
-  org: TODO - university
-  start: 2020-01-01
-  end: 2024-01-01
-
-- kind: project
-  title: TODO - a project worth showing
-  start: 2025-01-01
-  end: null
-  url: https://github.com/suban244
-  blurb: TODO - one line.
+- kind: career
+  title: Research Intern
+  org: NAAMII · Lalitpur, Nepal
+  start: 2023-11-01
+  end: 2024-03-01
+  blurb: Researched Transformer-based vision models.
