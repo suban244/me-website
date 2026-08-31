@@ -131,6 +131,16 @@
     come with it.
 
 - kind: community
+  title: 'AI Safety: Fellowship'
+  org: AI Safety Nepal
+  start: 2026-08-15
+  end: 2026-09-13
+  precision: day
+  blurb: >-
+    Facilitated discussions on AI risk, safety strategy, governance and
+    evaluation.
+
+- kind: community
   title: Intro to Python
   org: Nagarjuna College of IT
   start: 2026-05-18
@@ -150,18 +160,6 @@
   blurb: >-
     Talk on entry-level roadmaps for new graduates, AI-based research, and
     AI-led software development.
-
-# ---------------------------------------------------------------- TODO
-# These need dates before they can go on the timeline - an entry has to sit
-# somewhere. Uncomment and fill in `start` (and `end` for anything that ran
-# over a period) and they'll appear.
-
-# TODO(suban): you said AI Safety Nepal was two parts - the kickoff is above,
-# what's the second one? Same shape, just needs a title, date and a line.
-# - kind: community
-#   title: ...
-#   org: AI Safety Nepal
-#   start: 20XX-XX-01
 
 # Any entry can carry an optional `url`, which turns its title into a link:
 #   url: https://example.org/the-thing
