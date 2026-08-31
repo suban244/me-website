@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+const events = (await getCollection('timeline'))
+  .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf());
+const kinds = [...new Set(events.map((e) => e.data.kind))].sort();
+const yr = (d: Date | null) => (d ? d.getFullYear() : 'present');
+---
+<Base title="Timeline" description="Career, education, publications and projects.">
+  <h1>Timeline</h1>
+  <p class="meta">{events.length} events. Filter:</p>
+  <div class="chips">
+    <button class="chip is-on" data-kind="all">all</button>
+    {kinds.map((k) => <button class="chip" data-kind={k} style={`--dot: var(--${k})`}>{k}</button>)}
+  </div>
+  <ol class="spine">
+    {events.map((e) => (
+      <li class="ev" data-kind={e.data.kind} style={`--dot: var(--${e.data.kind})`}>
+        <span class="ev-years">{yr(e.data.start)}{yr(e.data.end) !== yr(e.data.start) ? `–${yr(e.data.end)}` : ''}</span>
+        <div class="ev-body">
+          <span class="kind">{e.data.kind}</span>
+          <div class="ev-title">{e.data.url ? <a href={e.data.url}>{e.data.title}</a> : e.data.title}</div>
+          {e.data.org && <div class="meta">{e.data.org}</div>}
+          {e.data.blurb && <p class="meta">{e.data.blurb}</p>}
+        </div>
+      </li>
+    ))}
+  </ol>
+</Base>
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  chips.forEach((chip) => chip.addEventListener('click', () => {
+    const k = chip.dataset.kind;
+    chips.forEach((c) => c.classList.toggle('is-on', c === chip));
+    document.querySelectorAll<HTMLElement>('.ev').forEach((ev) => {
+      ev.hidden = k !== 'all' && ev.dataset.kind !== k;
+    });
+  }));
+</script>

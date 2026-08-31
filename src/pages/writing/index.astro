@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+const posts = (await getCollection('writing', (p) => !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<Base title="Writing" description="Notes, essays and things I learned.">
+  <h1>Writing</h1>
+  <p class="meta">{posts.length} pieces. Filter by tag:</p>
+  <p>{tags.map((t) => (<><a class="tag" href={`/tags/${t}`}>{t}</a>{' '}</>))}</p>
+  <ul class="post-list">
+    {posts.map((p) => (
+      <li>
+        <a href={`/writing/${p.id}`}>{p.data.title}</a>
+        <span class="kind">{p.data.kind}</span>
+        <time class="meta" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+      </li>
+    ))}
+  </ul>
+</Base>

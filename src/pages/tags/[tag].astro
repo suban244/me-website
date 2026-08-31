@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+export async function getStaticPaths() {
+  const posts = await getCollection('writing', (p) => !p.data.draft);
+  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { posts: posts.filter((p) => p.data.tags.includes(tag)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()) },
+  }));
+}
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<Base title={`#${tag}`}>
+  <h1>#{tag}</h1>
+  <p class="meta">{posts.length} {posts.length === 1 ? 'piece' : 'pieces'} · <a href="/writing">all writing</a></p>
+  <ul class="post-list">
+    {posts.map((p) => (
+      <li><a href={`/writing/${p.id}`}>{p.data.title}</a>
+      <time class="meta" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time></li>
+    ))}
+  </ul>
+</Base>
