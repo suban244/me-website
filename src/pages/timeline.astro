@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import FilterBar from '../components/FilterBar.astro';
-import { rangeLabel, startYear } from '../lib/dates';
+import { eventLabel, startYear } from '../lib/dates';
 
 const events = (await getCollection('timeline')).sort(
   (a, b) => b.data.start.valueOf() - a.data.start.valueOf()
@@ -33,8 +33,11 @@ const kinds = [...new Set(events.map((e) => e.data.kind))].sort();
               <div class="meta">
                 {e.data.org && <span>{e.data.org}</span>}
                 {e.data.org && ' · '}
-                <span class="mono">{rangeLabel(e.data.start, e.data.end)}</span>
+                <span class="mono">
+                  {eventLabel(e.data.kind, e.data.start, e.data.end, e.data.precision)}
+                </span>
               </div>
+              {e.data.detail && <div class="meta detail">{e.data.detail}</div>}
               {e.data.blurb && <p class="meta">{e.data.blurb}</p>}
             </div>
           </li>
