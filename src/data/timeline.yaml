@@ -107,13 +107,11 @@
     Taught electronics fundamentals through to advanced microcontroller
     programming.
 
-# TODO(suban): you gave May 18-22 but not the year. Assumed 2023, since your
-# other workshops cluster there - correct if it was 2024.
 - kind: community
   title: Intro to Python
   org: Nagarjuna College of IT
-  start: 2023-05-18
-  end: 2023-05-22
+  start: 2026-05-18
+  end: 2026-05-22
   precision: day
   # url: https://...   # optional - links the title
   blurb: >-
