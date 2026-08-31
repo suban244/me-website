@@ -1,4 +1,5 @@
-// Content index the terminal queries. Built at compile time, no server.
+// Machine-readable index of everything on the site, built at compile time.
+// Groundwork for the terminal UI; also useful on its own.
 import { getCollection } from 'astro:content';
 
 export async function GET() {
