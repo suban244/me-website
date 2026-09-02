@@ -7,8 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check",
-    "import": "node scripts/import-obsidian.mjs"
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",

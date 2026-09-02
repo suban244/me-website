@@ -334,6 +334,19 @@ pre {
   line-height: 1.6;
 }
 
+/* --measure is a reading width for prose; code needs more. Let blocks bleed
+   out to --wide when the viewport allows, keeping a 1rem gutter, and collapse
+   back to the text column on narrow screens. */
+.prose pre {
+  --bleed: clamp(
+    0rem,
+    (100vw - var(--measure)) / 2 - 1rem,
+    (var(--wide) - var(--measure)) / 2
+  );
+  width: calc(100% + 2 * var(--bleed));
+  margin-inline: calc(-1 * var(--bleed));
+}
+
 pre code {
   background: none;
   padding: 0;
