@@ -6,23 +6,29 @@ tags: [agents, llm]
 ---
 
 ### Motivation
-- Agent needs to make charts and after doing some light data analysis
-- Monty with CodeMode solves the analysis part, but it has strict restrictions on allowed libraries.
-- Scaffolding Matplotlib as a tool, while possible, is not a clean solution, and may raise security issues.
+- Say a user needs to make charts after doing some light data analysis.
+- Need to run the analysis and charting code in a sandboxed environment, so that the model can generate the chart without having access to the filesystem or network.
+- For this we can use CodeMode, which allows the model to write code in a sandboxed environment (here: Monty).
+- For Charting, we can turn Matplotlib into a tool, but this is not a clean solution, and may raise security issues with model writing arbitrary code.
 - Vega-Lite is a good alternative: specs are plain JSON, and should be in model training data.
 
 ### Background
-[CodeMode](https://blog.cloudflare.com/code-mode/): allow agents to write code instead of the usual tool calling, which allows for a more expressive and efficient operation.
-[Monty](https://github.com/pydantic/monty): A minimal sandbox for running python. Used by pydantic-ai's CodeMode.
-[Vega-Lite](https://vega.github.io/vega-lite/): A JSON grammar for declaratively defining charts.
+[CodeMode](https://blog.cloudflare.com/code-mode/): allow agents to write code instead of the usual tool calling, which allows for a more expressive and efficient operation.  
+[Monty](https://github.com/pydantic/monty): A minimal sandbox for running python. Used by pydantic-ai's CodeMode.  
+[Vega-Lite](https://vega.github.io/vega-lite/): A JSON grammar for declaratively defining charts.  
+
 
 > You also need a tool to get the data from, for me I have a tool that allows models to run DB queries. (With timeouts and only read access ofc)
+
+
 > And a tool to pass the generated json into Vega-Lite Converter, which converts the spec into an image
 
 ### How it works
-You can combine all these items for a flow like this
+You can combine all these items into a flow like this  
 
-Message: Scatter plot of all my expenses with labels on the biggest ones
+**Message**: Scatter plot of all my expenses with labels on the biggest ones  
+
+> *Now the model does a series of tool calls by writing code in CodeMode, and the final output is a chart.*
 
 > Model first loads the data
 
