@@ -1,9 +1,16 @@
 ---
-title: 'Allowing your Agents to make Charts, using CodeMode and Vega-Lite'
+title: 'Agent Charts with Code Mode and Vega-Lite'
 date: 2026-09-02T12:31:00+05:45
 kind: writeup
 tags: [agents, llm]
+summary: 'How an LLM agent can draw charts by writing code: CodeMode runs the analysis in a Monty sandbox, and Vega-Lite renders a JSON spec to a PNG.'
+cover: ./example-expense-code.png
 ---
+
+Giving an agent the ability to plot something usually means handing it a plotting
+library and hoping the code it writes is safe. Code Mode plus Vega-Lite is a
+tighter fit: the model writes its analysis code inside a sandbox, then emits the
+chart as a JSON spec that gets rendered outside it.
 
 ### Motivation
 - Say a user needs to make charts after doing some light data analysis.
@@ -13,7 +20,7 @@ tags: [agents, llm]
 - Vega-Lite is a good alternative: specs are plain JSON, and should be in model training data.
 
 ### Background
-[CodeMode](https://blog.cloudflare.com/code-mode/): allow agents to write code instead of the usual tool calling, which allows for a more expressive and efficient operation.  
+[Code Mode](https://blog.cloudflare.com/code-mode/): allow agents to write code instead of the usual tool calling, which allows for a more expressive and efficient operation.  
 [Monty](https://github.com/pydantic/monty): A minimal sandbox for running python. Used by pydantic-ai's CodeMode.  
 [Vega-Lite](https://vega.github.io/vega-lite/): A JSON grammar for declaratively defining charts.  
 

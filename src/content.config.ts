@@ -14,16 +14,19 @@ const keyed = (idOf: (row: any, i: number) => string) => (text: string) => {
 
 const writing = defineCollection({
   loader: glob({ pattern: '**/index.md', base: './src/content/writing' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    kind: z.enum(['til', 'writeup', 'note', 'paper']),
-    tags: z.array(z.string()).default([]),
-    summary: z.string().optional(),
-    draft: z.boolean().default(false),
-    // old Hugo URLs kept alive by src/pages/til/[slug].astro
-    aliases: z.array(z.string()).default([]),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      kind: z.enum(['til', 'writeup', 'note', 'paper']),
+      tags: z.array(z.string()).default([]),
+      summary: z.string().optional(),
+      draft: z.boolean().default(false),
+      // old Hugo URLs kept alive by src/pages/til/[slug].astro
+      aliases: z.array(z.string()).default([]),
+      /** Co-located image for the social card. image() gives the built path. */
+      cover: image().optional(),
+    }),
 });
 
 const timeline = defineCollection({
